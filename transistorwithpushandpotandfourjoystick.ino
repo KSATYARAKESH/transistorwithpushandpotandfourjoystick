@@ -24,8 +24,7 @@ struct PacketData
   byte rPotValue;    
   byte switch1Value;
   byte switch2Value;
-  byte switch3Value;
-  byte switch4Value;  
+  byte switch3Value; 
 };
 PacketData data;
 
@@ -36,10 +35,10 @@ void setup()
   radio.openWritingPipe(pipeOut);
   radio.stopListening(); //start the radio Transmitter 
 
-  pinMode(2,INPUT_PULLUP);
-  pinMode(3,INPUT_PULLUP);
+  pinMode(6,INPUT_PULLUP);
+  pinMode(5,INPUT_PULLUP);
   pinMode(4,INPUT_PULLUP);
-  pinMode(5,INPUT_PULLUP);      
+     
 }
 
 int mapAndAdjustJoystickDeadBandValues(int value, bool reverse)
@@ -73,24 +72,24 @@ int mapAndAdjustJoystickDeadBandValues(int value, bool reverse)
 
 void loop()
 {
-  data.lxAxisValue    = mapAndAdjustJoystickDeadBandValues(analogRead(A0), false);
-  data.lyAxisValue    = mapAndAdjustJoystickDeadBandValues(analogRead(A1), false);
-  data.rxAxisValue    = mapAndAdjustJoystickDeadBandValues(analogRead(A2), false);
-  data.ryAxisValue    = mapAndAdjustJoystickDeadBandValues(analogRead(A3), false);
+  data.lxAxisValue    = mapAndAdjustJoystickDeadBandValues(analogRead(A1), false);
+  data.lyAxisValue    = mapAndAdjustJoystickDeadBandValues(analogRead(A0), false);
+  data.rxAxisValue    = mapAndAdjustJoystickDeadBandValues(analogRead(A3), false);
+  data.ryAxisValue    = mapAndAdjustJoystickDeadBandValues(analogRead(A2), false);
 
-  data.wxAxisValue    = mapAndAdjustJoystickDeadBandValues(analogRead(A4), false);
-  data.wyAxisValue    = mapAndAdjustJoystickDeadBandValues(analogRead(A5), false);
-  data.txAxisValue    = mapAndAdjustJoystickDeadBandValues(analogRead(A6), false);
-  data.tyAxisValue    = mapAndAdjustJoystickDeadBandValues(analogRead(A7), false);
+  data.wxAxisValue    = mapAndAdjustJoystickDeadBandValues(analogRead(A5), false);
+  data.wyAxisValue    = mapAndAdjustJoystickDeadBandValues(analogRead(A4), false);
+  data.txAxisValue    = mapAndAdjustJoystickDeadBandValues(analogRead(A7), false);
+  data.tyAxisValue    = mapAndAdjustJoystickDeadBandValues(analogRead(A6), false);
 
 
 
-  data.lPotValue      = map(analogRead(6), 0, 1023, 0, 254);
-  data.rPotValue      = map(analogRead(7), 0, 1023, 0, 254);  
-  data.switch1Value   = !digitalRead(2);
-  data.switch2Value   = !digitalRead(3);
-  data.switch3Value   = !digitalRead(4);
-  data.switch4Value   = !digitalRead(5);
+  data.lPotValue      = map(analogRead(2), 0, 1023, 0, 254);
+  data.rPotValue      = map(analogRead(3), 0, 1023, 0, 254);  
+  data.switch1Value   = !digitalRead(6);
+  data.switch2Value   = !digitalRead(4);
+  data.switch3Value   = !digitalRead(5);
+ 
         
   radio.write(&data, sizeof(PacketData));
 }
